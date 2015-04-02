@@ -32,6 +32,7 @@ angular.module("internationalPhoneNumber", []).directive 'internationalPhoneNumb
       preferredCountries: ['us', 'gb']
       responsiveDropdown: false
       utilsScript:        ""
+      formatOutput:       true
 
     angular.forEach options, (value, key) ->
       return unless attrs.hasOwnProperty(key) and angular.isDefined(attrs[key])
@@ -66,7 +67,7 @@ angular.module("internationalPhoneNumber", []).directive 'internationalPhoneNumb
 
 
     ctrl.$parsers.push (value) ->
-      return value if !value
+      return value if (!value || !options.formatOutput)
       value.replace(/[^\d]/g, '')
 
     ctrl.$parsers.push (value) ->
