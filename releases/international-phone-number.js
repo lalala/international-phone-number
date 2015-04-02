@@ -63,7 +63,7 @@
           });
         });
         ctrl.$parsers.push(function(value) {
-          if (!value || !option.formatOutput) {
+          if (!value || !options.formatOutput) {
             return value;
           }
           return value.replace(/[^\d]/g, '');
