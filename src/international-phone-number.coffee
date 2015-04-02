@@ -32,6 +32,7 @@ angular.module("internationalPhoneNumber", []).directive 'internationalPhoneNumb
       preferredCountries: ['us', 'gb']
       responsiveDropdown: false
       utilsScript:        ""
+      formatOutput:       true
 
     angular.forEach options, (value, key) ->
       return unless attrs.hasOwnProperty(key) and angular.isDefined(attrs[key])
@@ -58,15 +59,12 @@ angular.module("internationalPhoneNumber", []).directive 'internationalPhoneNumb
 
         unless attrs.skipUtilScriptDownload != undefined || options.utilsScript
           element.intlTelInput('loadUtils', '/bower_components/intl-tel-input/lib/libphonenumber/build/utils.js')
-      
-        watchOnce()
 
+        watchOnce()
     )
 
-
-
     ctrl.$parsers.push (value) ->
-      return value if !value
+      return value if (!value || !option.formatOutput)
       value.replace(/[^\d]/g, '')
 
     ctrl.$parsers.push (value) ->
